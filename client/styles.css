@@ -2,7 +2,11 @@
   text-align: center;
 }
 
-.center-form {
+.center-form .loading {
   width: 50%;
   margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
 }
