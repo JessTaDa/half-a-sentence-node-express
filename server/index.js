@@ -12,8 +12,24 @@ app.get('/', (req, res) => {
   });
 });
 
+function isValidSentence(sentence) {
+  return sentence.sentenceTail && sentence.sentenceTail.toString().trim() !== '';
+}
+
 app.post('/sentence', (req, res) => {
   console.log(req.body);
+  if (isValidSentence(req.body)) {
+    //insert to db..
+    const sentence = {
+      sentenceTail: req.body.sentenceTail.toString()
+    };
+  console.log(sentence);
+  } else {
+    res.status(422);
+    res.json({
+      message: 'Hey! Please finish your sentence'
+    })
+  }
 });
 
 app.listen(5000, () => {
