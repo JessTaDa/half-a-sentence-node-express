@@ -16,9 +16,18 @@ app.get('/', (req, res) => {
   });
 });
 
+// retrieve all sentences from database
+app.get('/sentences', (req, res) => {
+  sentences
+    .find()
+    .then(sentences => {
+      res.json(sentences)
+    });
+});
+
 function isValidSentence(sentence) {
   return sentence.sentenceTail && sentence.sentenceTail.toString().trim() !== '';
-}
+};
 
 app.post('/sentences', (req, res) => {
   console.log(req.body);
