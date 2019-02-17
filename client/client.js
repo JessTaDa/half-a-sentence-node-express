@@ -3,8 +3,12 @@ console.log('hello world');
 const form = document.getElementById('form');
 const loadingElement = document.getElementById('loading');
 const API_URL = 'http://localhost:5000/sentences';
+const sentencesElement = document.getElementById('sentences');
 
-loadingElement.style.display = 'none';
+loadingElement.style.display = '';
+
+listAllSentences();
+
 console.log(form);
 form.addEventListener('submit', (event) => {
   console.log('hello');
@@ -32,4 +36,28 @@ form.addEventListener('submit', (event) => {
       form.style.display = '';
       loadingElement.style.display = 'none';
     });
-});
+})
+
+function listAllSentences() {
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(sentences => {
+      console.log(sentences);
+      sentences.reverse();
+      sentences.forEach(sentence => {
+        const div = document.createElement('div');
+
+        const sentenceTail = document.createElement('p');
+        sentenceTail.textContent = sentence.sentenceTail;
+
+        const date = document.createElement('small');
+        date.textContent = new Date(sentence.created);
+
+        div.appendChild(sentenceTail);
+        div.appendChild(date);
+        sentencesElement.appendChild(div);
+      })
+      loadingElement.style.display = 'none';
+
+    });
+};
