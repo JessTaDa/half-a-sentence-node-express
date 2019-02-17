@@ -34,11 +34,13 @@ form.addEventListener('submit', (event) => {
       console.log(createdSentence);
       form.reset();
       form.style.display = '';
+      listAllSentences();
       loadingElement.style.display = 'none';
     });
 })
 
 function listAllSentences() {
+  sentencesElement.innerHTML = ''; //clears previous DOM Data
   fetch(API_URL)
     .then(response => response.json())
     .then(sentences => {
