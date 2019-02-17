@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const monk = require('monk');
+const Filter = require('bad-words');
 
 const app = express();
 
 const db = monk('localhost/sentences');
 const sentences = db.get('sentences');
+const filter = new Filter;
 
 app.use(cors()); //installs cors as middleware
 app.use(express.json()); //body parsor for anything from client of content-type: application/json
@@ -29,12 +31,12 @@ function isValidSentence(sentence) {
   return sentence.sentenceTail && sentence.sentenceTail.toString().trim() !== '';
 };
 
+//insert to db
 app.post('/sentences', (req, res) => {
   console.log(req.body);
   if (isValidSentence(req.body)) {
-    //insert to db..
     const sentence = {
-      sentenceTail: req.body.sentenceTail.toString(),
+      sentenceTail: filter.clean(req.body.sentenceTail.toString()),
       created: new Date()
     };
     console.log(sentence);
