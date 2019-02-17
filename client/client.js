@@ -33,7 +33,9 @@ form.addEventListener('submit', (event) => {
     .then(createdSentence => {
       console.log(createdSentence);
       form.reset();
-      form.style.display = '';
+      // setTimeout(() => {
+        form.style.display = '';
+      // }, 30000); //don't show form again until after 30 seconds
       listAllSentences();
       loadingElement.style.display = 'none';
     });
