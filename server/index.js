@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-const db = monk('localhost/sentences');
+const db = monk(process.env.MONGO_URI || 'localhost/sentences');
 const sentences = db.get('sentences');
 const filter = new Filter;
 
