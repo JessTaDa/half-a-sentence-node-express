@@ -2,7 +2,7 @@ console.log('hello world');
 
 const form = document.getElementById('form');
 const loadingElement = document.getElementById('loading');
-const API_URL = 'http://localhost:5000/sentences';
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/sentences' : 'https://sentences-api.now.sh/sentences';
 const sentencesElement = document.getElementById('sentences');
 
 loadingElement.style.display = '';
